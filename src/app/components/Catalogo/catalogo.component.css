@@ -1,0 +1,61 @@
+/* Estilos para el buscador */
+.search-container {
+    margin: 20px 0;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el filtro de categorías */
+.filter-container {
+    margin-bottom: 20px;
+}
+
+.filter-container select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Estilos para el catálogo */
+.catalogo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.producto {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.producto img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.producto-info {
+    margin-top: 10px;
+}
+
+.producto-info h2 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+.producto-info p {
+    font-size: 1rem;
+    color: #666;
+}

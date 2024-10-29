@@ -1,0 +1,12 @@
+<header class="header">
+  <img src="../../../assets/LOGO.png" alt="Logo de la empresa" class="logo" (click)="navigateHome()">
+  
+  <p-menubar class="menu-bar">
+    <ng-template pTemplate="start">
+      <span class="company-logo">APPTALA</span>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <p-splitButton label="Opciones" icon="pi pi-user" [model]="items"></p-splitButton>
+    </ng-template>
+  </p-menubar>
+</header>

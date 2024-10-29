@@ -1,0 +1,144 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
+
+html, body
+{
+    height: 100%;
+    margin: 0;
+}
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff; /* Color de fondo rosa pastel */
+}
+
+p-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.field {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #2b00ff;
+    border-radius: 5px;
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.password-field {
+    padding-right: 2rem;
+}
+
+button[type="submit"] {
+    width: 100%;
+}
+
+.mt-2 {
+    margin-top: 1rem;
+}
+body {
+    background-color: #ffffff; /* Color de fondo rosa pastel */
+    margin: 0; /* Eliminar el margen predeterminado del cuerpo */
+    padding: 0; /* Eliminar el relleno predeterminado del cuerpo */
+}
+/* Color de fondo de la página */
+body {
+    background-color: #ffffff; /* Rosa pastel */
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para el formulario */
+p-card {
+    background-color: #0800ff; /* Fondo blanco */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.field {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    font-weight: bold;
+    color: #333; /* Color de texto oscuro */
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.password-field {
+    padding-right: 2rem;
+}
+
+button[type="submit"] {
+    width: 100%;
+    background-color: #0800fe; /* Rosa intenso */
+    color: #010101; /* Texto blanco */
+}
+
+button[type="submit"]:hover {
+    background-color: #0800fe; /* Rosa intenso más oscuro al pasar el ratón */
+}
+
+.mt-2 {
+    margin-top: 1rem;
+    color: #333; /* Color de texto oscuro */
+}
+
+a {
+    color: #0800fe; /* Color del enlace rosa */
+}
+
+a:hover {
+    color: #0800fe; /* Color del enlace rosa más oscuro al pasar el ratón */
+}

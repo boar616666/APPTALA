@@ -1,0 +1,105 @@
+
+.header {
+    background-color: #03158a;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 60px;
+}
+
+
+.navbar {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: flex-end; 
+    padding: 0;
+    position: fixed; 
+    top: 60px; 
+    left: 0;
+    width: 100%;
+    z-index: 999; 
+}
+
+.navbar a {
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    margin: 0; /* Elimina espacios adicionales */
+}
+
+.navbar a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+header img {
+    max-height: 50px; /* Tamaño ajustado para el logo */
+}
+
+.logout-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #0056b3;
+}
+
+/* Ajuste del contenedor principal */
+.content {
+    padding: 140px 0; /* Asegúrate de que el padding sea suficiente para que no se sobreponga */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Estilos del carrusel */
+.carousel-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px; /* Añade un pequeño padding para evitar que los bordes se toquen */
+}
+
+.carousel-item {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden; /* Asegúrate de que las imágenes no se salgan del contenedor */
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.carousel-item img:hover {
+    transform: scale(1.05);
+}
+
+/* Hacer el carrusel responsivo */
+@media (max-width: 768px) {
+    .carousel-container {
+        max-width: 100%; /* Ajusta el tamaño máximo al 100% en pantallas más pequeñas */
+        padding: 0 10px; /* Reduce el padding en dispositivos móviles */
+    }
+
+    .carousel-item img {
+        border-radius: 5px; /* Ajusta el border-radius en pantallas pequeñas */
+    }
+}

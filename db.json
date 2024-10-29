@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": "c7c4",
+      "fullName": "OmarAbundis",
+      "email": "gearssgt@gmail.com",
+      "password": "$2a$10$Ya5oYscbFNF.d8WsOyHN7uOm7qkvx1dKZmBcwep68PTcwPQY.RDKi"
+    },
+    
+    {
+      "id": "af9d",
+      "fullName": "zoeSSJ",
+      "email": "noseunejemmploxd@gmail.com",
+      "password": "$2a$10$0M.jNfw8RrQQ6rP/if2d6.gs...Lc8ZYV/raPx17wvVDL2KlaTTdO"
+    }
+  ]
+}

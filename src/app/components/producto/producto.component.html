@@ -1,0 +1,21 @@
+<div class="container">
+  <app-header></app-header> <!-- Agregar el header en la parte superior -->
+
+  <div class="producto-card">
+    <h2>Agregar Nuevo Producto</h2>
+    
+    <label for="title">Título:</label>
+    <input type="text" id="title" [(ngModel)]="producto.title" name="title" />
+
+    <label for="description">Descripción:</label>
+    <textarea id="description" [(ngModel)]="producto.description" name="description"></textarea>
+
+    <label for="price">Precio:</label>
+    <input type="number" id="price" [(ngModel)]="producto.price" name="price" />
+
+    <label for="image">Imagen:</label>
+    <input type="file" id="image" (change)="onFileSelected($event)" />
+
+    <button (click)="onSubmit()" class="producto-button">Guardar Producto</button>
+  </div>
+</div>

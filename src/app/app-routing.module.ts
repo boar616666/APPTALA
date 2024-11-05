@@ -7,6 +7,7 @@ import { CatalogoComponent } from './components/Catalogo/catalogo.component';
 import { ContactoComponent } from './components/contacto/contacto.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProductoComponent } from './components/producto/producto.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
   {
     path: 'contacto',        // Ruta para Contacto
     component: ContactoComponent,
+    canActivate: [AuthGuard]  // Puedes protegerla si es necesario
+  },
+  {
+    path: 'carrito',        // Ruta para Contacto
+    component: CarritoComponent,
     canActivate: [AuthGuard]  // Puedes protegerla si es necesario
   },
   {

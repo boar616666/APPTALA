@@ -1,52 +1,126 @@
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-  }
-  
+/* Contenedor principal */
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); /* Resta el espacio del header */
+  padding-top: 40px; /* Espacio adicional para evitar superposición con el header */
+  padding-bottom: 40px; /* Espacio adicional en la parte inferior */
+  background-color: #f4f4f9;
+}
+
+/* Tarjeta del formulario */
+.producto-card {
+  width: 100%;
+  max-width: 350px; /* Ancho máximo para pantallas pequeñas */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos del título */
+.form-title {
+  text-align: center;
+  color: #333;
+  font-size: 22px;
+  margin-bottom: 1px;
+}
+
+/* Contenedor del formulario */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos de los campos */
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #555;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Espaciado entre los campos */
+input,
+textarea,
+input[type="file"] {
+  margin-bottom: 6px;
+}
+
+/* Botón de envío */
+.producto-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.producto-button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
   .producto-card {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    padding: 15px;
   }
-  
-  .producto-card h2 {
-    margin-bottom: 20px;
-    color: #2d3e50;
+
+  .form-title {
+    font-size: 20px;
   }
-  
-  label {
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
-  }
-  
+
   input[type="text"],
   input[type="number"],
   textarea,
   input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 6px;
   }
-  
+
   .producto-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 8px;
   }
-  
-  .producto-button:hover {
-    background-color: #0056b3;
+}
+
+@media (max-width: 480px) {
+  .producto-card {
+    max-width: 250px;
   }
-  
+
+  .form-title {
+    font-size: 18px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  input[type="file"] {
+    padding: 5px;
+  }
+
+  .producto-button {
+    padding: 7px;
+  }
+}

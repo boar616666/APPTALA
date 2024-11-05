@@ -1,11 +1,16 @@
 <header class="header">
   <img src="../../../assets/LOGO.png" alt="Logo de la empresa" class="logo" (click)="navigateHome()">
-  
+
   <p-menubar class="menu-bar">
     <ng-template pTemplate="start">
-      <span class="company-logo">APPTALA</span>
+      <span class="company-logo"></span>
     </ng-template>
     <ng-template pTemplate="end">
+      <!-- Ícono de Carrito de Compras -->
+      <a (click)="navigateToCart()" class="cart-icon">
+        <i class="pi pi-shopping-cart"></i> <!-- Ícono del carrito -->
+      </a>
+      <!-- Botón de Opciones -->
       <p-splitButton label="Opciones" icon="pi pi-user" [model]="items"></p-splitButton>
     </ng-template>
   </p-menubar>

@@ -19,6 +19,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenubarModule } from 'primeng/menubar'; 
 import { ProductoComponent } from './components/producto/producto.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { ProductoComponent } from './components/producto/producto.component';
     HeaderComponent,
     ContactoComponent,
     CatalogoComponent,
-    ProductoComponent
+    ProductoComponent,
+    CarritoComponent
     
   ],
   imports: [

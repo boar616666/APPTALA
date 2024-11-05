@@ -1,0 +1,29 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+
+<div class="cart-container">
+  <h2>Carrito de Compras</h2>
+  
+  <div *ngIf="cartItems.length > 0; else emptyCart">
+    <div *ngFor="let item of cartItems" class="cart-item">
+      <img [src]="item.imageUrl" alt="{{ item.name }}" class="item-image" />
+      <div class="item-details">
+        <h4>{{ item.name }}</h4>
+        <p>Cantidad: {{ item.quantity }}</p>
+        <p>Precio: ${{ item.price }}</p>
+        <button (click)="removeFromCart(item)">Eliminar</button>
+      </div>
+    </div>
+
+    <div class="cart-total">
+      <h3>Total: ${{ getTotal() }}</h3>
+    </div>
+
+    
+    <div id="paypal-button-container"></div>
+  </div>
+
+  <ng-template #emptyCart>
+    <p>Tu carrito está vacío.</p>
+  </ng-template>
+</div>

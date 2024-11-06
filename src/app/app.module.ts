@@ -20,6 +20,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenubarModule } from 'primeng/menubar'; 
 import { ProductoComponent } from './components/producto/producto.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { GestionProductoComponent } from './components/gestionProducto/gestion-Producto.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { CarritoComponent } from './components/carrito/carrito.component';
     ContactoComponent,
     CatalogoComponent,
     ProductoComponent,
-    CarritoComponent
+    CarritoComponent,
+    GestionProductoComponent
     
   ],
   imports: [

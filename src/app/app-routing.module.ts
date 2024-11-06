@@ -8,6 +8,7 @@ import { ContactoComponent } from './components/contacto/contacto.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProductoComponent } from './components/producto/producto.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { GestionProductoComponent } from './components/gestionProducto/gestion-Producto.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,11 @@ const routes: Routes = [
   {
     path: 'producto',        // Ruta para Producto
     component: ProductoComponent,
+    canActivate: [AuthGuard]  // Puedes protegerla si es necesario
+  },
+  {
+    path: 'gestionProducto',        // Ruta para Producto
+    component: GestionProductoComponent,
     canActivate: [AuthGuard]  // Puedes protegerla si es necesario
   },
   {

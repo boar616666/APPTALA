@@ -14,6 +14,11 @@ export class HeaderComponent {
       command: () => this.goToProducto() // Navega a la ruta 'producto'
     },
     {
+      label: 'Modificar', // Nueva opción para modificar productos
+      icon: 'pi pi-pencil',
+      command: () => this.goToGestionProducto() // Navega a la ruta de gestión de productos
+    },
+    {
       label: 'Cerrar Sesión',
       icon: 'pi pi-sign-out',
       command: () => this.logOut() // Cierra sesión
@@ -39,5 +44,9 @@ export class HeaderComponent {
 
   goToProducto() {
     this.router.navigate(['/producto']); // Navega a la ruta de producto
+  }
+
+  goToGestionProducto() {
+    this.router.navigate(['/gestionProducto']); // Navega a la ruta de gestión de productos
   }
 }

@@ -1,0 +1,51 @@
+<div>
+    <h2>Gestión de Productos</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Título</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productos">
+          <td>
+            <img [src]="producto.image" alt="{{ producto.title }}" width="100" />
+          </td>
+          <td>{{ producto.title }}</td>
+          <td>{{ producto.description }}</td>
+          <td>{{ producto.price }}</td>
+          <td>
+            <button (click)="editarProducto(producto)">Modificar</button>
+            <button (click)="eliminarProducto(producto._id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <form [formGroup]="productForm" (ngSubmit)="actualizarProducto()">
+        <h3 *ngIf="selectedProduct">Editar Producto</h3>
+        <div>
+          <label>Título:</label>
+          <input formControlName="title" required />
+        </div>
+        <div>
+          <label>Descripción:</label>
+          <input formControlName="description" required />
+        </div>
+        <div>
+          <label>Precio:</label>
+          <input formControlName="price" type="number" required />
+        </div>
+        <div>
+          <label>Imagen:</label>
+          <input type="file" name="image" (change)="onImageSelected($event)" />
+        </div>
+        <button type="submit">Guardar Cambios</button>
+      </form>
+      
+  </div>
+  

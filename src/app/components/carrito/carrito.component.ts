@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from '../../../services/cart.service';
 
 interface CartItem {
   name: string;
@@ -15,14 +16,12 @@ declare var paypal: any;
   styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit {
-  cartItems: CartItem[] = [
-    { name: 'Producto 1', price: 10, quantity: 1, imageUrl: 'ruta/a/imagen1.jpg' },
-    { name: 'Producto 2', price: 20, quantity: 2, imageUrl: 'ruta/a/imagen2.jpg' }
-  ];
+  cartItems: CartItem[] = [];
 
-  constructor() {}
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
+    this.cartItems = this.cartService.getCartItems();
     this.loadPayPalScript().then(() => {
       this.loadPayPalButton();
     });
@@ -33,7 +32,8 @@ export class CarritoComponent implements OnInit {
   }
 
   removeFromCart(item: CartItem): void {
-    this.cartItems = this.cartItems.filter(cartItem => cartItem !== item);
+    this.cartService.removeFromCart(item);
+    this.cartItems = this.cartService.getCartItems();
   }
 
   loadPayPalScript(): Promise<void> {
@@ -69,7 +69,8 @@ export class CarritoComponent implements OnInit {
       onApprove: (data: any, actions: any) => {
         return actions.order.capture().then((details: any) => {
           alert(`Pago completado por ${details.payer.name.given_name}`);
-          this.cartItems = []; // Limpia el carrito después del pago
+          this.cartService.clearCart(); // Limpia el carrito en el servicio
+          this.cartItems = []; // Actualiza la vista del carrito
         });
       },
       onError: (err: any) => {

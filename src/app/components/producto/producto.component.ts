@@ -25,13 +25,13 @@ export class ProductoComponent {
 
   onSubmit() {
     const formData = new FormData();
-    formData.append('title', this.producto.title); // Asegúrate de usar 'title'
+    formData.append('title', this.producto.title); // 'title'
     formData.append('description', this.producto.description); // 'description'
     formData.append('price', this.producto.price.toString()); // 'price'
     if (this.producto.image) {
-      formData.append('imagen', this.producto.image); // 'imagen' para la imagen
+      formData.append('image', this.producto.image); // Cambié 'imagen' por 'image'
     }
-
+  
     this.productService.saveProduct(formData).subscribe({
       next: (response) => {
         console.log('Producto guardado con éxito:', response);
@@ -42,4 +42,5 @@ export class ProductoComponent {
       }
     });
   }
+  
 }

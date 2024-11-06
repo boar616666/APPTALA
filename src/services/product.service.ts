@@ -10,7 +10,6 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  // Método para guardar un nuevo producto
   saveProduct(productData: FormData): Observable<any> {
     return this.http.post(this.apiUrl, productData);
   }

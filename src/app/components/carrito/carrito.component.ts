@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
-
-interface CartItem {
-  name: string;
-  price: number;
-  quantity: number;
-  imageUrl: string;
-}
+import { PaymentService } from '../../../services/pagos.service'; // Importa el servicio de pagos
 
 declare var paypal: any;
 
@@ -16,9 +10,12 @@ declare var paypal: any;
   styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit {
-  cartItems: CartItem[] = [];
+  cartItems: any[] = [];  // Usamos 'any' ya que el tipo específico no es necesario
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private paymentService: PaymentService // Inyecta el servicio de pagos
+  ) {}
 
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
@@ -31,20 +28,18 @@ export class CarritoComponent implements OnInit {
     return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   }
 
-  removeFromCart(item: CartItem): void {
+  removeFromCart(item: any): void {
     this.cartService.removeFromCart(item);
     this.cartItems = this.cartService.getCartItems();
   }
 
   loadPayPalScript(): Promise<void> {
     return new Promise((resolve) => {
-      // Verifica si el script de PayPal ya está cargado
       if (document.getElementById('paypal-sdk')) {
         resolve();
         return;
       }
-      
-      // Carga el script de PayPal
+
       const script = document.createElement('script');
       script.id = 'paypal-sdk';
       script.src = "https://www.paypal.com/sdk/js?client-id=AdV3msHdiL5zQgKuG-Dh9Ix72UA_rwEOAEhIZTcg0CZxsh-woM8ZnByFFM7eJx1wZJPwIDZq-JBFi1dN&currency=USD";
@@ -69,8 +64,33 @@ export class CarritoComponent implements OnInit {
       onApprove: (data: any, actions: any) => {
         return actions.order.capture().then((details: any) => {
           alert(`Pago completado por ${details.payer.name.given_name}`);
-          this.cartService.clearCart(); // Limpia el carrito en el servicio
-          this.cartItems = []; // Actualiza la vista del carrito
+
+          // Crear el objeto paymentData con la estructura correcta
+          const paymentData = {
+            payerId: details.payer.payer_id,  // El payerId de PayPal
+            transactionId: details.id,        // El ID de la transacción de PayPal
+            amount: this.getTotal(),          // El total de la compra (calculado en el frontend)
+            items: this.cartItems.map(item => ({
+              product: item._id,  // El _id del producto, que es un ObjectId de MongoDB
+              quantity: item.quantity,
+              price: item.price
+            })),
+            paymentDate: new Date()  // La fecha del pago
+          };
+
+          // Llamar al servicio para guardar el pago en la base de datos
+          this.paymentService.savePayment(paymentData).subscribe({
+            next: (response) => {
+              console.log('Pago guardado con éxito:', response);
+            },
+            error: (error) => {
+              console.error('Error al guardar el pago:', error);
+            }
+          });
+
+          // Limpiar el carrito después de realizar el pago
+          this.cartService.clearCart();
+          this.cartItems = [];
         });
       },
       onError: (err: any) => {

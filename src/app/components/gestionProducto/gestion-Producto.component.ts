@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../../services/product.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { EditarProductoComponent } from '../EditarProductoComponent/editar-producto.component';
 
 @Component({
   selector: 'app-gestion-producto',
@@ -9,16 +11,19 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class GestionProductoComponent implements OnInit {
   productos: any[] = [];
-  selectedProduct: any = null; // Para el producto seleccionado
-  productForm: FormGroup; // Formulario reactivo para editar productos
-  selectedImage: File | null = null; // Para almacenar la imagen seleccionada
+  productForm: FormGroup;
 
-  constructor(private productService: ProductService, private fb: FormBuilder) {
+  constructor(
+    private productService: ProductService,
+    private dialog: MatDialog,
+    private fb: FormBuilder
+  ) {
     this.productForm = this.fb.group({
-      title: [''],
-      description: [''],
-      price: [''],
-      image: [null] // Si usas imágenes, asegúrate de manejar el archivo adecuadamente
+      _id: [''],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0)]],
+      image: ['']
     });
   }
 
@@ -30,86 +35,84 @@ export class GestionProductoComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next: (response) => {
         this.productos = response.map(product => {
-          // Completa la URL de la imagen si es relativa
+          // Asegurarse de que la URL de la imagen sea completa
           if (product.image && !product.image.startsWith('http')) {
-            product.image = `http://localhost:3000/${product.image}`; // Ajusta la URL base si es necesario
+            product.image = `http://localhost:3000/${product.image}`;
           }
           return product;
         });
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error al obtener los productos:', error);
+        alert('Error al cargar la lista de productos. Inténtalo más tarde.');
       }
     });
   }
 
   editarProducto(producto: any) {
-    this.selectedProduct = producto;
-    this.productForm.patchValue({
-      title: producto.title,
-      description: producto.description,
-      price: producto.price,
-      image: null // Manejar el archivo de imagen según sea necesario
+    const dialogRef = this.dialog.open(EditarProductoComponent, {
+      width: '400px',
+      data: producto
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Si hay resultado, actualizamos el producto en la lista, incluyendo la imagen
+        const index = this.productos.findIndex(p => p._id === result._id);
+        if (index !== -1) {
+          // Aquí, si result.image es una URL completa o un archivo de imagen, se ajusta.
+          if (result.image && !result.image.startsWith('http')) {
+            result.image = `http://localhost:3000/${result.image}`;
+          }
+          this.productos[index] = result; // Reemplazamos el producto en la lista
+        }
+      }
     });
   }
 
-  onImageSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedImage = input.files[0]; // Guardar la imagen seleccionada
-      this.productForm.patchValue({ image: this.selectedImage }); // Actualizar el FormGroup con la imagen seleccionada
+  onImageSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.productForm.patchValue({ image: file });
     }
   }
 
-  actualizarProducto() {
-    if (this.selectedProduct) {
-      const productData = new FormData();
-  
-      const title = this.productForm.get('title');
-      const description = this.productForm.get('description');
-      const price = this.productForm.get('price');
-  
-      if (title && description && price) {
-        productData.append('title', title.value);
-        productData.append('description', description.value);
-        productData.append('price', price.value);
-  
-        // Agregar la imagen solo si está seleccionada
-        if (this.selectedImage) {
-          productData.append('image', this.selectedImage);
-        }
-  
-        // Llamada al servicio para actualizar el producto
-        this.productService.updateProduct(this.selectedProduct._id, productData).subscribe({
-          next: () => {
-            console.log('Producto actualizado con éxito');
-            this.obtenerProductos(); // Actualizar la lista después de la actualización
-            this.selectedProduct = null; // Reiniciar la selección
-            this.productForm.reset(); // Reiniciar el formulario
-            this.selectedImage = null; // Reiniciar la imagen seleccionada
-          },
-          error: (error) => {
-            console.error('Error al actualizar el producto:', error);
-          }
-        });
-      } else {
-        console.error('Error: Formulario no está completamente lleno');
-      }
-    }
-  }
-
-  eliminarProducto(productId: string | undefined) {
-    if (!productId) {
-      console.error('Error: El ID del producto es indefinido');
+  onSave() {
+    if (this.productForm.invalid) {
+      alert('El formulario es inválido. Verifica los campos e inténtalo de nuevo.');
       return;
     }
+
+    const formData = new FormData();
+    formData.append('title', this.productForm.value.title);
+    formData.append('description', this.productForm.value.description);
+    formData.append('price', this.productForm.value.price);
+    if (this.productForm.value.image) {
+      formData.append('image', this.productForm.value.image);
+    }
+
+    // Actualizar producto mediante el PUT
+    this.productService.updateProduct(this.productForm.value._id, formData).subscribe({
+      next: () => {
+        alert('Producto actualizado con éxito.');
+        this.obtenerProductos();
+      },
+      error: (error: any) => {
+        console.error('Error al actualizar el producto:', error);
+        alert('Error al actualizar el producto. Inténtalo de nuevo.');
+      }
+    });
+  }
+
+  eliminarProducto(productId: string): void {
     this.productService.deleteProduct(productId).subscribe({
       next: () => {
-        console.log('Producto eliminado con éxito');
-        this.obtenerProductos(); // Actualizar la lista después de eliminar
+        alert('Producto eliminado con éxito.');
+        this.obtenerProductos();
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error al eliminar el producto:', error);
+        alert('Error al eliminar el producto. Inténtalo más tarde.');
       }
     });
   }

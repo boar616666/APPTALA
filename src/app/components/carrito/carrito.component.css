@@ -43,3 +43,6 @@
     background-color: #ff3333;
   }
   
+  .cart-icon {
+    margin-left: 50px; /* Añade espacio a la izquierda del ícono */
+}

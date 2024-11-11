@@ -1,5 +1,6 @@
 <div>
   <app-header></app-header> <!-- Encabezado en la parte superior -->
+  <app-navbar></app-navbar>
 
   <div class="main-content">
     <div class="producto-card">
@@ -15,8 +16,12 @@
         <label for="price">Precio:</label>
         <input type="number" id="price" [(ngModel)]="producto.price" name="price" required min="0" />
 
+        <!-- Campo para el proveedor -->
+        <label for="proveedor">Proveedor:</label>
+        <input type="text" id="proveedor" [(ngModel)]="producto.proveedor" name="proveedor" required />
+
         <label for="image">Imagen:</label>
-        <input type="file" id="image" (change)="onFileSelected($event)" />
+        <input type="file" id="image" (change)="onFileSelected($event)" accept=".jpg" required/>
 
         <button type="submit" class="producto-button">Guardar Producto</button>
       </form>

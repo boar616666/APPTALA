@@ -1,47 +1,28 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Contactos</title>
-    <link rel="stylesheet" href="contacto.component.css"> <!-- Enlace al archivo CSS -->
-</head>
 <body>
     <app-header></app-header>  
     <app-navbar></app-navbar>  
 
-    <!-- Contenido de la página de contacto -->
-    <h1>Lista de Contactos</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Número de Teléfono</th>
-                <th>Correo Electrónico</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Juan Pérez</td>
-                <td>(555) 123-4567</td>
-                <td>juan.perez&#64;example.com</td>
-            </tr>
-            <tr>
-                <td>María Gómez</td>
-                <td>(555) 987-6543</td>
-                <td>maria.gomez&#64;example.com</td>
-            </tr>
-            <tr>
-                <td>Carlos López</td>
-                <td>(555) 555-5555</td>
-                <td>carlos.lopez&#64;example.com</td>
-            </tr>
-            <tr>
-                <td>Ana Sánchez</td>
-                <td>(555) 444-4444</td>
-                <td>ana.sanchez&#64;example.com</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="contact-container">
+        <h1>Lista de Contactos</h1>
+        
+        <table class="contact-table" *ngIf="usuarios && usuarios.length > 0; else noData">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo Electrónico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let usuario of usuarios">
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.correo }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Mensaje si no hay datos -->
+        <ng-template #noData>
+            <p>No hay contactos disponibles para mostrar.</p>
+        </ng-template>
+    </div>
 </body>
-</html>

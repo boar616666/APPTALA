@@ -35,7 +35,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]  // Puedes protegerla si es necesario
   },
   {
-    path: 'carrito',        // Ruta para Contacto
+    path: 'carrito',        // Ruta para Carrito
     component: CarritoComponent,
     canActivate: [AuthGuard]  // Puedes protegerla si es necesario
   },
@@ -45,18 +45,18 @@ const routes: Routes = [
     canActivate: [AuthGuard]  // Puedes protegerla si es necesario
   },
   {
-    path: 'gestionProducto',        // Ruta para Producto
+    path: 'gestionProducto', // Ruta para GestionProducto
     component: GestionProductoComponent,
     canActivate: [AuthGuard]  // Puedes protegerla si es necesario
   },
   {
     path: '',
-    redirectTo: 'login',      // Redirige a login por defecto si no está autenticado
+    redirectTo: 'home',     // Redirige a home por defecto al iniciar la aplicación
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'home'        // Redirige a home en caso de ruta no encontrada
+    redirectTo: 'home'       // Redirige a home en caso de ruta no encontrada
   }
 ];
 

@@ -1,37 +1,50 @@
-// src/app/services/cart.service.ts
 import { Injectable } from '@angular/core';
-
-interface CartItem {
-  name: string;
-  price: number;
-  quantity: number;
-  imageUrl: string;
-}
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private cartItems: CartItem[] = [];
+  private cartItemsSubject = new BehaviorSubject<any[]>(this.cargarCarritoDesdeStorage());
+  cartItems$ = this.cartItemsSubject.asObservable();  
 
-  getCartItems(): CartItem[] {
-    return this.cartItems;
+  getCartItems(): any[] {
+    return this.cartItemsSubject.value;
   }
 
-  addToCart(item: CartItem): void {
-    const existingItem = this.cartItems.find(cartItem => cartItem.name === item.name);
+  getCartItemCount(): number {
+    return this.cartItemsSubject.value.reduce((total, item) => total + item.quantity, 0);
+  }
+
+  addToCart(item: any): void {
+    const cartItems = this.cartItemsSubject.value;
+    const existingItem = cartItems.find(cartItem => cartItem.name === item.name);
+
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
-      this.cartItems.push({ ...item, quantity: 1 });
+      cartItems.push({ ...item, quantity: 1 });
     }
+
+    this.actualizarCarrito(cartItems);
   }
 
-  removeFromCart(item: CartItem): void {
-    this.cartItems = this.cartItems.filter(cartItem => cartItem !== item);
+  removeFromCart(item: any): void {
+    const cartItems = this.cartItemsSubject.value.filter(cartItem => cartItem.name !== item.name);
+    this.actualizarCarrito(cartItems);
   }
 
   clearCart(): void {
-    this.cartItems = [];
+    this.actualizarCarrito([]);
+  }
+
+  private actualizarCarrito(cartItems: any[]): void {
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+    this.cartItemsSubject.next(cartItems);
+  }
+
+  private cargarCarritoDesdeStorage(): any[] {
+    const carritoGuardado = localStorage.getItem('cart');
+    return carritoGuardado ? JSON.parse(carritoGuardado) : [];
   }
 }

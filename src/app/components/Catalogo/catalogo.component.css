@@ -1,82 +1,124 @@
-/* Estilos para el buscador */
-.search-container {
-    margin: 20px 0;
+/* Estructura general de la página */
+.page-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre header, navbar y el contenedor de productos */
 }
 
-.search-container input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilos para el filtro de categorías */
-.filter-container {
-    margin-bottom: 20px;
-}
-
-.filter-container select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+app-header,
+app-navbar {
     width: 100%;
 }
 
-/* Estilos para el catálogo */
-.catalogo {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.producto {
-    background-color: #fff;
+.contenido-productos {
+    margin: 0 auto;
+    max-width: 1200px;
     padding: 20px;
+}
+
+.productos-grid {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en la siguiente fila si no hay espacio */
+    gap: 20px; /* Espacio entre las tarjetas */
+    justify-content: flex-start; /* Alinea las tarjetas a la izquierda */
+}
+
+/* Estilos para las cards */
+.card {
+    border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 200px; /* Ajusta el tamaño de las tarjetas */
+    margin: 0;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
     text-align: center;
 }
 
-.producto img {
+/* Ajuste de la imagen dentro de la tarjeta */
+.card img {
     width: 100%;
-    height: auto;
-    border-radius: 5px;
+    height: 150px; /* Ajusta la altura de la imagen para que coincida con la tarjeta */
+    object-fit: cover; /* La imagen cubre completamente el espacio sin distorsionarse */
+    border-radius: 8px;
+    margin-bottom: 10px; /* Espacio entre la imagen y el contenido */
 }
 
-.producto-info {
+/* Efecto hover para las tarjetas */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para los botones dentro de la tarjeta */
+.card .btn {
+    display: inline-block;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.card .btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.card .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.card .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.card .btn-secondary:hover {
+    background-color: #495057;
+}
+
+/* Estilos adicionales si se necesita para el contenido dentro de las cards */
+.card .producto-info {
     margin-top: 10px;
 }
 
-.producto-info h2 {
-    font-size: 1.5rem;
+.card .producto-info h2 {
+    font-size: 1.1rem;
+    color: #333;
     margin: 10px 0;
 }
 
-.producto-info p {
-    font-size: 1rem;
+.card .producto-info p {
+    font-size: 0.9rem;
     color: #666;
 }
 
-.producto-info .precio {
-    font-size: 1.2rem;
+.card .producto-info .precio {
+    font-size: 1rem;
     font-weight: bold;
     color: #333;
     margin: 10px 0;
 }
 
-.producto-info button {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.producto-info button:hover {
-    background-color: #218838;
-}
+/* Estilos para la caja de búsqueda */
+.search-container {
+    width: 200px;  /* Ajusta el ancho de la caja de búsqueda */
+    margin: 20px auto;  /* Centra la caja de búsqueda en la página */
+  }
+  
+  .search-container input {
+    width: 100%;  /* Hace que el input ocupe todo el ancho del contenedor */
+    padding: 8px;  /* Reduce el padding dentro del input */
+    font-size: 14px;  /* Reduce el tamaño de la fuente */
+    border-radius: 4px;  /* Bordes redondeados */
+    border: 1px solid #ccc;  /* Borde gris claro */
+  }
+  
+  .search-container input:focus {
+    border-color: #007bff;  /* Borde azul cuando el input está enfocado */
+    outline: none;  /* Elimina el borde por defecto del navegador */
+  }
+  

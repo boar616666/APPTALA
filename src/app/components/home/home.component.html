@@ -1,14 +1,9 @@
-
 <app-header></app-header>
-
 <app-navbar></app-navbar>
 
-
-
 <div class="content">
-  <h1>Bienvenido a la Página de Inicio</h1>
+  <h1 class="titulo" >Bienvenidos  </h1>
 
- 
   <div class="carousel-container">
     <p-carousel [value]="images" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000">
       <ng-template pTemplate="item" let-image>
@@ -17,5 +12,34 @@
         </div>
       </ng-template>
     </p-carousel>
+  </div>
+
+  <!-- Contenedor de tarjetas -->
+  <div class="card-container">
+    <div class="horizontal-card">
+      <img src="../../../assets/letrero.jpg" alt="Imagen 1" class="card-img">
+      <div class="card-content">
+        <h3>Cuna de la Independencia de México</h3>
+        <p>Dolores Hidalgo, ubicado en el estado de Guanajuato, es conocido como el lugar donde comenzó la lucha por la independencia de México. El 16 de septiembre de 1810, el sacerdote Miguel Hidalgo y Costilla lanzó el famoso "Grito de Dolores", un llamado a la independencia que marcó el inicio de la guerra contra el dominio español.
+
+        </p>
+      </div>
+    </div>
+    <div class="horizontal-card">
+      <img src="../../../assets/dolores.jpg" alt="Imagen 2" class="card-img">
+      <div class="card-content">
+        <h3>Parroquia de Nuestra Señora de los Dolores</h3>
+        <p>La Parroquia de Nuestra Señora de los Dolores es el lugar donde el cura Miguel Hidalgo y Costilla dio el famoso "Grito de Dolores" el 16 de septiembre de 1810, marcando el inicio de la Guerra de Independencia de México. Desde este sitio, Hidalgo hizo un llamado a la población para levantarse en armas contra el dominio español, convirtiéndolo en un símbolo de libertad para el país.</p>
+      </div>
+    </div>
+    <div class="horizontal-card">
+      <img src="../../../assets/talabera.jpg" alt="Imagen 3" class="card-img">
+      <div class="card-content">
+        <h3>Tradición de Cerámica</h3>
+        <p>La cerámica de Dolores Hidalgo es famosa en todo México por sus colores vivos y diseños tradicionales. Esta ciudad alberga numerosos talleres que han preservado técnicas de alfarería centenarias, creando piezas decorativas, vajillas y arte popular que reflejan la rica herencia cultural de la región.
+
+        </p>
+      </div>
+    </div>
   </div>
 </div>

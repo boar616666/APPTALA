@@ -1,41 +1,27 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo</title>
-    <link rel="stylesheet" href="catalogo.component.css">
-</head>
-<body>
-    <app-header></app-header>
-    <app-navbar></app-navbar>
+<app-header></app-header>
+<app-navbar></app-navbar>
 
-    <!-- Caja de búsqueda -->
-    <div class="search-container">
-        <input type="text" placeholder="Buscar productos..." [(ngModel)]="searchTerm">
-    </div>
+<!-- Caja de búsqueda -->
+<div class="search-container">
+  <input 
+    type="text" 
+    placeholder="Buscar productos..." 
+    [(ngModel)]="searchTerm" 
+    (ngModelChange)="filtrarProductos()"
+  >
+</div>
 
-    <!-- Filtro de categorías -->
-    <div class="filter-container">
-        <label for="categoria">Filtrar por categoría:</label>
-        <select id="categoria" [(ngModel)]="categoriaSeleccionada">
-            <option value="">Todas las Categorías</option>
-            <option *ngFor="let categoria of categorias">{{ categoria }}</option>
-        </select>
-    </div>
+<!-- Lista de productos filtrada con imágenes y descripciones -->
+<h1>Catálogo de Productos</h1>
 
-    <!-- Lista de productos filtrada con imágenes y descripciones -->
-    <h1>Catálogo de Productos</h1>
-    <div class="catalogo">
-        <div class="producto" *ngFor="let producto of productosFiltrados()">
-            <img [src]="producto.imagenUrl" alt="Imagen de {{ producto.title }}">
-            <div class="producto-info">
-                <h2>{{ producto.title }}</h2>
-                <p>{{ producto.description }}</p>
-                <p class="precio">{{ producto.price | currency }}</p>
-                <button (click)="agregarAlCarrito(producto)">Agregar al carrito</button>
-            </div>
-        </div>
+<div class="productos-grid">
+  <div class="card" *ngFor="let producto of productosFiltrados">
+    <img [src]="producto.imageUrl" alt="Imagen de {{ producto.title }}">
+    <div class="producto-info">
+      <h2>{{ producto.title }}</h2>
+      <p>{{ producto.description }}</p>
+      <p class="precio">{{ producto.price | currency }}</p>
+      <button class="btn btn-primary" (click)="agregarAlCarrito(producto)">Agregar al carrito</button>
     </div>
-</body>
-</html>
+  </div>
+</div>

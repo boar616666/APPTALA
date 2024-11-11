@@ -142,3 +142,6 @@ a {
 a:hover {
     color: #0800fe; /* Color del enlace rosa más oscuro al pasar el ratón */
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

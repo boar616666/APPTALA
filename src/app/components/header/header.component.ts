@@ -1,52 +1,78 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from '../../../services/cart.service';
+import { AuthService } from '../../../services/auth.services';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   items = [
     {
       label: 'Subir',
       icon: 'pi pi-upload',
-      command: () => this.goToProducto() // Navega a la ruta 'producto'
+      command: () => this.goToProducto()
     },
     {
-      label: 'Modificar', // Nueva opción para modificar productos
+      label: 'Modificar',
       icon: 'pi pi-pencil',
-      command: () => this.goToGestionProducto() // Navega a la ruta de gestión de productos
+      command: () => this.goToGestionProducto()
     },
     {
       label: 'Cerrar Sesión',
       icon: 'pi pi-sign-out',
-      command: () => this.logOut() // Cierra sesión
+      command: () => this.logOut()
     }
   ];
 
-  constructor(private router: Router) {}
+  cartItemCount: number = 0;
+  isLoggedIn: boolean = false;
+
+  constructor(
+    public router: Router,
+    private cartService: CartService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    // Verificar el estado de sesión desde AuthService sin utilizar token
+    this.isLoggedIn = this.authService.getIsLoggedIn(); // Este método debe devolver si el usuario está autenticado o no
+    console.log("Estado inicial de sesión en HeaderComponent:", this.isLoggedIn);
+
+    // Suscribirse al estado de sesión de AuthService para cambios
+    this.authService.isLoggedIn$.subscribe((isLoggedIn: boolean) => {
+      this.isLoggedIn = isLoggedIn;
+      console.log("Estado de sesión recibido en HeaderComponent después de suscripción:", isLoggedIn);
+      this.cdr.detectChanges(); // Forzar actualización inmediata en el DOM
+    });
+
+    // Suscribirse a los cambios en el carrito
+    this.cartService.cartItems$.subscribe((items) => {
+      this.cartItemCount = items.reduce((count, item) => count + item.quantity, 0);
+    });
+  }
 
   logOut() {
-    console.log('Cerrando sesión');
-    localStorage.removeItem('authToken'); // Elimina el token de autenticación
-    localStorage.removeItem('user'); // Elimina datos de usuario
-    this.router.navigate(['/login']); // Redirige a la página de inicio de sesión
+    this.authService.logout(); // Llamada al método logout, que debe eliminar cualquier estado de autenticación
+    this.router.navigate(['/home']);
   }
 
   navigateHome() {
-    this.router.navigate(['/home']); // Navega a la ruta de home
+    this.router.navigate(['/home']);
   }
 
   navigateToCart() {
-    this.router.navigate(['/carrito']); // Navega a la ruta del carrito
+    this.router.navigate(['/carrito']);
   }
 
   goToProducto() {
-    this.router.navigate(['/producto']); // Navega a la ruta de producto
+    this.router.navigate(['/producto']);
   }
 
   goToGestionProducto() {
-    this.router.navigate(['/gestionProducto']); // Navega a la ruta de gestión de productos
+    this.router.navigate(['/gestionProducto']);
   }
 }

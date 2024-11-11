@@ -1,51 +1,27 @@
-<div>
-    <h2>Gestión de Productos</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Imagen</th>
-          <th>Título</th>
-          <th>Descripción</th>
-          <th>Precio</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let producto of productos">
-          <td>
-            <img [src]="producto.image" alt="{{ producto.title }}" width="100" />
-          </td>
-          <td>{{ producto.title }}</td>
-          <td>{{ producto.description }}</td>
-          <td>{{ producto.price }}</td>
-          <td>
-            <button (click)="editarProducto(producto)">Modificar</button>
-            <button (click)="eliminarProducto(producto._id)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <form [formGroup]="productForm" (ngSubmit)="actualizarProducto()">
-        <h3 *ngIf="selectedProduct">Editar Producto</h3>
-        <div>
-          <label>Título:</label>
-          <input formControlName="title" required />
+<div class="page-layout">
+  <!-- Header -->
+  <app-header></app-header>
+
+  <!-- Navbar -->
+  <app-navbar></app-navbar>
+
+  <!-- Contenedor de productos -->
+  <div class="contenido-productos">
+    <h2>Productos</h2>
+    <div class="productos-grid">
+      <div *ngFor="let producto of productos" class="card">
+        <div class="card-content">
+          <h3>{{ producto.title }}</h3>
+          <p>{{ producto.description }}</p>
+          <p class="price">${{ producto.price }}</p>
+          <!-- Imagen del producto -->
+          <img *ngIf="producto.image" [src]="producto.image" alt="Imagen del producto" class="card-img">
+          <div class="actions">
+            <button (click)="editarProducto(producto)" class="btn btn-primary">Editar</button>
+            <button (click)="eliminarProducto(producto._id)" class="btn btn-secondary">Eliminar</button>
+          </div>
         </div>
-        <div>
-          <label>Descripción:</label>
-          <input formControlName="description" required />
-        </div>
-        <div>
-          <label>Precio:</label>
-          <input formControlName="price" type="number" required />
-        </div>
-        <div>
-          <label>Imagen:</label>
-          <input type="file" name="image" (change)="onImageSelected($event)" />
-        </div>
-        <button type="submit">Guardar Cambios</button>
-      </form>
-      
+      </div>
+    </div>
   </div>
-  
+</div>

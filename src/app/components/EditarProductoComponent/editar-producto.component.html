@@ -1,0 +1,27 @@
+<mat-dialog-content>
+  <div class="producto-card">
+    <h2 class="form-title">Producto</h2>
+
+    <form [formGroup]="productForm" (ngSubmit)="onSave()">
+      <!-- Título -->
+      <label for="title">Título:</label>
+      <input matInput type="text" formControlName="title" id="title" required />
+
+      <!-- Descripción -->
+      <label for="description">Descripción:</label>
+      <textarea matInput formControlName="description" id="description" required></textarea>
+
+      <!-- Precio -->
+      <label for="price">Precio:</label>
+      <input matInput type="number" formControlName="price" id="price" required min="0" />
+
+      <!-- Imagen -->
+      <label for="image">Imagen:</label>
+      <input type="file" id="image" (change)="onImageSelected($event)" accept=".jpg" />
+
+      <!-- Botones -->
+      <button mat-button type="button" class="cancel-btn" (click)="onNoClick()">Cancelar</button>
+      <button mat-button type="submit" class="producto-button" [disabled]="productForm.invalid">Guardar Producto</button>
+    </form>
+  </div>
+</mat-dialog-content>

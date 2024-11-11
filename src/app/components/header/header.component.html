@@ -6,12 +6,13 @@
       <span class="company-logo"></span>
     </ng-template>
     <ng-template pTemplate="end">
-      <!-- Ícono de Carrito de Compras -->
       <a (click)="navigateToCart()" class="cart-icon">
-        <i class="pi pi-shopping-cart"></i> <!-- Ícono del carrito -->
+        <i class="pi pi-shopping-cart"></i>
+        <span *ngIf="cartItemCount > 0" class="cart-badge">{{ cartItemCount }}</span>
       </a>
-      <!-- Botón de Opciones -->
-      <p-splitButton label="Opciones" icon="pi pi-user" [model]="items"></p-splitButton>
+
+      <button *ngIf="!isLoggedIn" (click)="router.navigate(['/login'])">Iniciar sesión</button>
+      <p-splitButton *ngIf="isLoggedIn" label="Opciones" icon="pi pi-user" [model]="items"></p-splitButton>
     </ng-template>
   </p-menubar>
 </header>

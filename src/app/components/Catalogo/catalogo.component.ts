@@ -1,4 +1,3 @@
-// catalogo.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import { CartService } from '../../../services/cart.service';
@@ -9,48 +8,61 @@ import { CartService } from '../../../services/cart.service';
   styleUrls: ['./catalogo.component.css']
 })
 export class CatalogoComponent implements OnInit {
-  searchTerm: string = '';
-  categoriaSeleccionada: string = '';
-  productos: any[] = [];
-
-  categorias: string[] = ['Decoracion', 'Cocina', 'Jardineria'];
+  searchTerm: string = '';  // Término de búsqueda para filtrar los productos
+  productos: any[] = [];    // Lista de productos que se obtendrán del servicio
+  productosFiltrados: any[] = []; // Lista de productos filtrados para mejorar el rendimiento
 
   constructor(
-    private productService: ProductService,
-    private cartService: CartService
+    private productService: ProductService,  // Servicio para obtener los productos
+    private cartService: CartService          // Servicio para manejar el carrito
   ) {}
 
-  ngOnInit() {
-    this.obtenerProductos();
+  ngOnInit(): void {
+    this.obtenerProductos();  // Cargar productos al inicializar el componente
   }
 
-  obtenerProductos() {
+  // Obtener los productos del servicio ProductService
+  obtenerProductos(): void {
     this.productService.getProducts().subscribe({
       next: (response) => {
-        this.productos = response.map(producto => ({
-          ...producto,
-          imagenUrl: `http://localhost:3000/${producto.image}`,
-        }));
+        this.productos = response.map((producto: any) => {
+          // Asegurarse de que la URL de la imagen sea completa
+          if (producto.image && !producto.image.startsWith('http')) {
+            producto.image = `http://localhost:3000/${producto.image}`;  // Cambiar la base de la URL de la imagen
+          }
+          return { ...producto, isInCart: false }; // Agregar la propiedad isInCart
+        });
+        this.productosFiltrados = [...this.productos]; // Inicializar los productos filtrados
       },
-      error: (error) => console.error('Error al obtener productos:', error)
+      error: (error) => {
+        console.error('Error al cargar los productos:', error);
+      }
     });
   }
 
-  productosFiltrados() {
-    return this.productos.filter(producto => 
-      producto.title.toLowerCase().includes(this.searchTerm.toLowerCase()) && 
-      (this.categoriaSeleccionada === '' || producto.categoria === this.categoriaSeleccionada)
-    );
+  // Filtrar productos según el término de búsqueda
+  filtrarProductos(): void {
+    if (this.searchTerm.trim()) {
+      this.productosFiltrados = this.productos.filter(product =>
+        product.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      this.productosFiltrados = [...this.productos];  // Restaurar todos los productos
+    }
   }
 
-  agregarAlCarrito(producto: any) {
-    const item = {
+  // Agregar producto al carrito
+  agregarAlCarrito(producto: any): void {
+    const cartItem = {
+      _id: producto._id,  // Asegúrate de que el producto tiene un campo `_id`
       name: producto.title,
       price: producto.price,
       quantity: 1,
-      imageUrl: producto.imagenUrl
+      imageUrl: producto.image || producto.imageUrl  // Usar la URL correcta de la imagen
     };
-    this.cartService.addToCart(item);
-    alert(`${producto.title} agregado al carrito`);
+
+    this.cartService.addToCart(cartItem);  // Usamos el método correcto `addToCart`
+    producto.isInCart = true;  // Cambiar el estado de isInCart
   }
 }

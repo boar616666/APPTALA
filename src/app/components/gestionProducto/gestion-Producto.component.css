@@ -1,0 +1,76 @@
+.page-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre header, navbar y el contenedor de productos */
+  }
+  
+  app-header,
+  app-navbar {
+    width: 100%;
+  }
+  
+  .contenido-productos {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 20px;
+  }
+  
+  .productos-grid {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en la siguiente fila si no hay espacio */
+    gap: 20px; /* Espacio entre las tarjetas */
+    justify-content: flex-start; /* Alinea las tarjetas a la izquierda */
+  }
+  
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 220px; /* Fija el ancho de la tarjeta */
+    margin: 0; /* Elimina el margen extra */
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+  }
+  
+  /* Ajuste de la imagen dentro de la tarjeta */
+  .card img {
+    width: 100%; /* La imagen ocupa todo el ancho de la tarjeta */
+    height: auto; /* Mantiene la proporción original */
+    border-radius: 8px; /* Ajuste de las esquinas de la imagen */
+  }
+  
+  /* Hover en la tarjeta */
+  .card:hover {
+    transform: translateY(-5px); /* Efecto de levantamiento */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+  }
+  
+  .card .btn {
+    display: inline-block;
+    padding: 8px 15px; /* Ajuste del tamaño de los botones */
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Animación para los botones */
+  }
+  
+  .card .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .card .btn-primary:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+  }
+  
+  .card .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .card .btn-secondary:hover {
+    background-color: #495057; /* Color más oscuro al pasar el mouse */
+  }
+  

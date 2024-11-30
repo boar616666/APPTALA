@@ -1,48 +1,108 @@
+/* Contenedor general del carrito */
 .cart-container {
-    width: 90%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  
-  .cart-item {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-  }
-  
-  .item-image {
-    width: 80px;
-    height: 80px;
-    margin-right: 15px;
-  }
-  
-  .item-details {
-    flex: 1;
-  }
-  
-  .cart-total {
-    margin-top: 20px;
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-  
-  button {
-    background-color: #ff5050;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  button:hover {
-    background-color: #ff3333;
-  }
-  
-  .cart-icon {
-    margin-left: 50px; /* Añade espacio a la izquierda del ícono */
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* Items del carrito */
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.item-image {
+  width: 80px;
+  height: 80px;
+  margin-right: 15px;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.cart-total {
+  margin-top: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* Sección de método de pago */
+.payment-section {
+  margin-top: 20px;
+}
+
+.payment-options {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+/* Tarjetas de métodos de pago */
+.payment-card {
+  flex: 1;
+  text-align: center;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #fff;
+}
+
+.payment-card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.payment-card p {
+  margin: 0;
+}
+
+.payment-card:hover {
+  border-color: #007bff;
+}
+
+.payment-card.selected {
+  border-color: #007bff;
+  background-color: #f0f8ff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de pagar */
+.payment-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.payment-button:hover {
+  background-color: #0056b3;
+}
+
+/* Botón de eliminar */
+button {
+  background-color: #ff5050;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #ff3333;
 }

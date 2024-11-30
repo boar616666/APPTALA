@@ -1,0 +1,73 @@
+<h2>Pago - {{ metodo | titlecase }}</h2>
+
+<!-- Contenedor para "Pago a Meses" -->
+<div class="meses-container">
+  <label for="pagoMeses">Pago a Meses:</label>
+  <div class="radio-buttons">
+    <label>
+      <input type="radio" name="pagoMeses" value="si" [(ngModel)]="pagoMeses" (change)="cambiarPagoMeses('si')" /> Sí
+    </label>
+    <label>
+      <input type="radio" name="pagoMeses" value="no" [(ngModel)]="pagoMeses" (change)="cambiarPagoMeses('no')" /> No
+    </label>
+  </div>
+</div>
+
+<!-- Mostrar opciones de meses solo si "Sí" fue seleccionado -->
+<div *ngIf="pagoMeses === 'si'" class="radio-buttons">
+  <label>
+    <input type="radio" name="meses" value="3" (change)="actualizarTotalPorMeses(3)" /> 3 meses
+  </label>
+  <label>
+    <input type="radio" name="meses" value="6" (change)="actualizarTotalPorMeses(6)" /> 6 meses
+  </label>
+  <label>
+    <input type="radio" name="meses" value="12" (change)="actualizarTotalPorMeses(12)" /> 12 meses
+  </label>
+</div>
+
+<!-- Mostrar el monto a pagar por mes si "Pago a Meses" está activado -->
+<div *ngIf="pagoMeses === 'si' && mesesSeleccionados">
+  <p>Total a pagar por mes: ${{ totalMensual.toFixed(2) }}</p>
+</div>
+
+<!-- Formulario para Contra Entrega -->
+<div *ngIf="metodo === 'contra-entrega'" class="form-container">
+  <h3>Contra Entrega</h3>
+  <form (ngSubmit)="procesarFormulario()">
+    <label for="direccion">Dirección de Envío:</label>
+    <input type="text" id="direccion" name="direccion" required />
+
+    <label for="telefono">Teléfono:</label>
+    <input type="text" id="telefono" name="telefono" required />
+
+    <button type="submit">Confirmar Envío</button>
+  </form>
+</div>
+
+<!-- Formulario para Tarjeta -->
+<div *ngIf="metodo === 'tarjeta'" class="form-container">
+  <h3>Pago con Tarjeta</h3>
+  <form (ngSubmit)="procesarFormulario()">
+    <label for="numero">Número de Tarjeta:</label>
+    <input type="text" id="numero" name="numero" required />
+
+    <label for="fecha">Fecha de Expiración:</label>
+    <input type="month" id="fecha" name="fecha" required />
+
+    <label for="cvv">CVV:</label>
+    <input type="text" id="cvv" name="cvv" required />
+
+    <button type="submit">Pagar con Tarjeta</button>
+  </form>
+</div>
+
+<!-- Mensaje para PayPal -->
+<div *ngIf="metodo === 'paypal'">
+    <p>Redirigiendo a PayPal para completar el pago...</p>
+    <div id="paypal-button-container-modal"></div> <!-- Cambié el ID para mayor claridad -->
+  </div>
+  
+
+<!-- Botón de cancelar -->
+<button (click)="cancelar()">Cancelar</button>

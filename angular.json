@@ -39,11 +39,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/faec-view-gds0551-2",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -56,12 +56,7 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -91,10 +86,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "faec-view-gds0551-2:build:production"
+              "browserTarget": "faec-view-gds0551-2:build:production"
             },
             "development": {
-              "buildTarget": "faec-view-gds0551-2:build:development"
+              "browserTarget": "faec-view-gds0551-2:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -102,7 +97,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "faec-view-gds0551-2:build"
+            "browserTarget": "faec-view-gds0551-2:build"
           }
         },
         "test": {

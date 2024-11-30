@@ -13,6 +13,7 @@
     <div class="cart-container">
         <h2>Carrito de Compras</h2>
         
+        <!-- Carrito con items -->
         <div *ngIf="cartItems.length > 0; else emptyCart">
             <div *ngFor="let item of cartItems" class="cart-item">
                 <img [src]="item.imageUrl" alt="{{ item.name }}" class="item-image" />
@@ -28,10 +29,47 @@
                 <h3>Total: ${{ getTotal() }}</h3>
             </div>
 
-            <!-- Contenedor para el botón de PayPal -->
-            <div id="paypal-button-container"></div>
+            <!-- Nueva sección: Selección de método de pago con cards -->
+            <div class="payment-section">
+                <h3>Seleccionar método de pago</h3>
+                <div class="payment-options">
+                    <!-- PayPal -->
+                    <div 
+                        class="payment-card" 
+                        [class.selected]="metodoSeleccionado === 'paypal'" 
+                        (click)="seleccionarMetodo('paypal')">
+                        <img src="assets/paypal-icon.png" alt="PayPal">
+                        <p>PayPal</p>
+                    </div>
+
+                    <!-- Tarjeta de crédito -->
+                    <div 
+                        class="payment-card" 
+                        [class.selected]="metodoSeleccionado === 'tarjeta'" 
+                        (click)="seleccionarMetodo('tarjeta')">
+                        <img src="assets/card-icon.png" alt="Tarjeta">
+                        <p>Tarjeta de Crédito</p>
+                    </div>
+
+                    <!-- Contra entrega -->
+                    <div 
+                        class="payment-card" 
+                        [class.selected]="metodoSeleccionado === 'contra-entrega'" 
+                        (click)="seleccionarMetodo('contra-entrega')">
+                        <img src="assets/other-icon.png" alt="Contra Entrega">
+                        <p>Contra Entrega</p>
+                    </div>
+                </div>
+
+                
+
+            </div>
+
+            <!-- Contenedor PayPal si está seleccionado -->
+            <div id="paypal-button-container" *ngIf="metodoSeleccionado === 'paypal'"></div>
         </div>
 
+        <!-- Carrito vacío -->
         <ng-template #emptyCart>
             <p>Tu carrito está vacío.</p>
         </ng-template>
